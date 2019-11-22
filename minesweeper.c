@@ -7,44 +7,50 @@
 
 #include <stdlib.h>
 
-int **tab_int_maker(int height)
+int **tab_int_maker(int height[])
 {
     int i;
     int j;
     int **res;
 
-    res = (int **)malloc(height * sizeof(int *));
-    for (i = 0; i < height; i++) {
-        res[i] = (int *)malloc(height * sizeof(int));
-        for (j = 0; j < height; j++) {
+    res = (int **)malloc(height[0] * sizeof(int *));
+    for (i = 0; i < height[0]; i++) {
+        res[i] = (int *)malloc(height[1] * sizeof(int));
+        for (j = 0; j < height[1]; j++) {
             res[i][j] = 0;
         }
     }
     return res;
 }
 
-char *height_finders(char *buf, int *height)
+char *height_finders(char *buf, int height[])
 {
     int i = 0;
+    int j;
 
     while (buf[i] != '\n') {
-        *height *= 10;
-        *height += (buf[i] - '0');
+        height[0] *= 10;
+        height[0] += (buf[i] - '0');
         i++;
+    }
+    j = (i + 1);
+    while (buf[j] != '\n') {
+        height[1] += 1;
+        j++;
     }
     return (buf + i + 1);
 }
 
-int *big_finder(char **tab, int height, int **int_tab)
+int *big_finder(char **tab, int height[], int **int_tab)
 {
     int i;
     int j;
-    int *sqr;// = {[0 ... 2] = 0};
+    int *sqr;
 
     sqr = (int *)malloc(3 * sizeof(int));
     sqr[0] = 0;
-    for (i = 0; i < height; i++) {
-        for (j = 0; j < height; j++) {
+    for (i = 0; i < height[0]; i++) {
+        for (j = 0; j < height[1]; j++) {
             if (int_tab[i][j] > sqr[0]) {
                 sqr[0] = int_tab[i][j];
                 sqr[1] = i;

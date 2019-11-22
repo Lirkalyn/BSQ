@@ -12,14 +12,13 @@
 #include <fcntl.h>
 #include "my.h"
 
-int main3(char **tab, int height, int **int_tab)
+int main3(char **tab, int height[], int **int_tab)
 {
     int *sqr;
     int i;
     int j;
 
     sqr = big_finder(tab, height, int_tab);
-    //printf("1 = %d et 2 = %d et 3 = %d\n", sqr[0], sqr[1], sqr[2]);
     for (i = 0; i < sqr[0]; i++) {
         for (j = 0; j < sqr[0]; j++) {
             tab[(sqr[1] - i)][(sqr[2] - j)] = 'x';
@@ -28,14 +27,14 @@ int main3(char **tab, int height, int **int_tab)
     my_show_word_array(tab);
 }
 
-int main2(char **tab, int height)
+int main2(char **tab, int height[])
 {
     int **int_tab;
     int fst[3];
 
     int_tab = tab_int_maker(height);
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < height; j++) {
+    for (int i = 0; i < height[0]; i++) {
+        for (int j = 0; j < height[1]; j++) {
             if (i == 0 || j == 0)
                 int_tab[i][j] = angle(i, j, tab);
             if (i != 0 && j != 0 && tab[i][j] == '.') {
@@ -46,9 +45,7 @@ int main2(char **tab, int height)
             }
             else if (i != 0 && j != 0 && tab[i][j] == 'o')
                 int_tab[i][j] = 0;
-            //printf("%d", int_tab[i][j]);
         }
-        //printf("\n");
     }
     main3(tab, height, int_tab);
 }
@@ -59,7 +56,7 @@ int main(int argc, char **argv)
     char *buf;
     int adre;
     int readed_byte;
-    int height = 0;
+    int height[2] = {[0 ... 1] = 0};
     char **tab;
 
     if (argc != 2)
@@ -72,7 +69,7 @@ int main(int argc, char **argv)
         return 84;
     readed_byte = read(adre, buf, fileStat.st_size);
     buf[fileStat.st_size] = '\0';
-    buf = height_finders(buf, &height);
+    buf = height_finders(buf, height);
     tab = my_str_to_word_array(buf);
     main2(tab, height);
 }
