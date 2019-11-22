@@ -26,18 +26,24 @@ int **tab_int_maker(int height[])
 char *height_finders(char *buf, int height[])
 {
     int i = 0;
-    int j;
 
+    if (buf[0] == 0) {
+        height[2] = -1000000000;
+        return '\0';
+    }
     while (buf[i] != '\n') {
         height[0] *= 10;
         height[0] += (buf[i] - '0');
         i++;
     }
-    for (j = (i + 1); buf[j] != '\n'; j++)
+    for (int j = (i + 1); buf[j] != '\n'; j++)
         height[1] += 1;
-    for (int z = (i + 1); buf[z] != '\0'; z++)
+    for (int z = (i + 1); buf[z] != '\0'; z++) {
         if (buf[z] == '\n')
             height[2] += 1;
+        if (buf[z] != '.' && buf[z] != 'o' && buf[z] != '\n')
+            height[2] = -1000000000;
+    }
     return (buf + i + 1);
 }
 

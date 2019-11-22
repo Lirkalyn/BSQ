@@ -25,6 +25,7 @@ int main3(char **tab, int height[], int **int_tab)
         }
     }
     my_show_word_array(tab);
+    return 0;
 }
 
 int main2(char **tab, int height[])
@@ -46,7 +47,7 @@ int main2(char **tab, int height[])
             else if (i != 0 && j != 0 && tab[i][j] == 'o')
                 int_tab[i][j] = 0;
         }
-    main3(tab, height, int_tab);
+    return main3(tab, height, int_tab);
 }
 
 int main(int argc, char **argv)
