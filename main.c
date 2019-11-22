@@ -33,7 +33,7 @@ int main2(char **tab, int height[])
     int fst[3];
 
     int_tab = tab_int_maker(height);
-    for (int i = 0; i < height[0]; i++) {
+    for (int i = 0; i < height[0]; i++)
         for (int j = 0; j < height[1]; j++) {
             if (i == 0 || j == 0)
                 int_tab[i][j] = angle(i, j, tab);
@@ -46,7 +46,6 @@ int main2(char **tab, int height[])
             else if (i != 0 && j != 0 && tab[i][j] == 'o')
                 int_tab[i][j] = 0;
         }
-    }
     main3(tab, height, int_tab);
 }
 
@@ -54,9 +53,8 @@ int main(int argc, char **argv)
 {
     struct stat fileStat;
     char *buf;
-    int adre;
-    int readed_byte;
-    int height[2] = {[0 ... 1] = 0};
+    int adre_readedbyte[2];
+    int height[3] = {[0 ... 2] = 0};
     char **tab;
 
     if (argc != 2)
@@ -64,12 +62,12 @@ int main(int argc, char **argv)
     if (stat(argv[1], &fileStat) < 0)
         return 84;
     buf = (char *)malloc((fileStat.st_size + 1) * sizeof(char));
-    adre = open(argv[1], O_RDONLY);
-    if (adre == -1)
+    adre_readedbyte[0] = open(argv[1], O_RDONLY);
+    if (adre_readedbyte[0] == -1)
         return 84;
-    readed_byte = read(adre, buf, fileStat.st_size);
+    adre_readedbyte[1] = read(adre_readedbyte[0], buf, fileStat.st_size);
     buf[fileStat.st_size] = '\0';
     buf = height_finders(buf, height);
     tab = my_str_to_word_array(buf);
-    main2(tab, height);
+    return (height[0] != height[2]) ? 84 : main2(tab, height);
 }

@@ -33,11 +33,11 @@ char *height_finders(char *buf, int height[])
         height[0] += (buf[i] - '0');
         i++;
     }
-    j = (i + 1);
-    while (buf[j] != '\n') {
+    for (j = (i + 1); buf[j] != '\n'; j++)
         height[1] += 1;
-        j++;
-    }
+    for (int z = (i + 1); buf[z] != '\0'; z++)
+        if (buf[z] == '\n')
+            height[2] += 1;
     return (buf + i + 1);
 }
 
