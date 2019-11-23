@@ -7,20 +7,19 @@
 
 #include <unistd.h>
 
-void my_putchar(char c)
+void my_putchar(char *c, int len)
 {
-    write(1, &c, 1);
+    write(1, c, len);
 }
 
-int my_show_word_array(char * const *tab)
+int my_show_word_array(char * const *tab, int len)
 {
     int i;
     int j;
 
     for (i = 0; tab[i] != 0; i++) {
-        for (j = 0; tab[i][j] != '\0'; j++)
-            my_putchar(tab[i][j]);
-        my_putchar('\n');
+        my_putchar(tab[i], len);
+        my_putchar("\n", 1);
     }
     return 0;
 }

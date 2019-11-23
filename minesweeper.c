@@ -40,7 +40,7 @@ char *height_finders(char *buf, int height[])
         height[1] += 1;
     for (int z = (i + 1); buf[z] != '\0'; z++) {
         if (buf[z] == '\n')
-            height[2] += 1;
+            height[2] += ((z - i - (height[2] + 1)) % height[1]) ? -1000000 : 1;
         if (buf[z] != '.' && buf[z] != 'o' && buf[z] != '\n')
             height[2] = -1000000000;
     }

@@ -24,7 +24,7 @@ int main3(char **tab, int height[], int **int_tab)
             tab[(sqr[1] - i)][(sqr[2] - j)] = 'x';
         }
     }
-    my_show_word_array(tab);
+    my_show_word_array(tab, height[1]);
     return 0;
 }
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
         return 84;
     buf = (char *)malloc((fileStat.st_size + 1) * sizeof(char));
     adre_readedbyte[0] = open(argv[1], O_RDONLY);
-    if (adre_readedbyte[0] == -1)
+    if (adre_readedbyte[0] == -1 || adre_readedbyte[0] > 3)
         return 84;
     adre_readedbyte[1] = read(adre_readedbyte[0], buf, fileStat.st_size);
     buf[fileStat.st_size] = '\0';
